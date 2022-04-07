@@ -11,8 +11,6 @@ function createDomElement(className) {
 }
 
 function drawDomElement(instance){
-console.log("new horizontal position " + instance.positionX)
-console.log("new")
 instance.domElement.style.left = instance.positionX + "%";
 instance.domElement.style.bottom = instance.positionY + "%";
 
@@ -27,10 +25,13 @@ game.start();
 document.addEventListener("keydown", function (event) {
   if (event.key === "ArrowRight") {
     game.movePlayer("right");
-    console.log("we want to move to the right");
   } else if (event.key === "ArrowLeft") {
     game.movePlayer("left");
-    console.log("we want to move to the left");
+
   }
 });
 
+/* checkCollision() { 
+if (instance.domElement.style.left < 0 || instance.domElement.style.left > 99) // horizontal position
+STOP
+*/

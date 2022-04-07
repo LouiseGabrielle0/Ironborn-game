@@ -16,3 +16,11 @@
   width: 1.5vw;
   border-radius: 50%
 }
+
+.obstacle {
+    position: absolute;
+  background-color: rgba(145, 45, 32, 0.842);  
+  height: 2vh;
+  width: 1.5vw;
+  border-radius: 75%
+}
