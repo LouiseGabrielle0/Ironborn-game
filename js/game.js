@@ -12,6 +12,9 @@ class Game {
     this.player = null;
     this.create = create;
     this.draw = draw;
+    this.obstacleArr = [];
+    this.timer = 0;
+    
     // this.score = 0
     // this.timer = 0
   }
@@ -24,17 +27,34 @@ class Game {
     this.obstacle = new Obstacle();
     this.obstacle.domElement = this.create("obstacle");
     this.draw(this.obstacle);
-
-    console.log(this.obstacle);
+    this.detectCollision(this.obstacle);
+    console.log(this.player.positionX)
+    console.log(this.player.positionY)
 
     setInterval(() => {
-      this.obstacle.moveDown();
-      this.draw(this.obstacle);
+      this.obstacleArr.forEach((obstacle) => {
+        obstacle.moveDown();
+        this.draw(obstacle);
+        this.detectCollision(this.obstacle);
+        console.log(this.player.positionX)
+    console.log(this.player.positionY)
+      });
+
+      if (this.timer % 5 === 0) {
+        const newObstacle = new Obstacle();
+        newObstacle.domElement = this.create("obstacle");
+        this.obstacleArr.push(newObstacle);
+      }
+      this.timer++;
     }, 100);
 
-    this.createMoreObstacles();
-  
+    
   }
+
+  /*  setInterval(() => {
+      this.obstacle.moveDown();
+      this.draw(this.obstacle);
+    }, 100); */
 
   movePlayer(direction) {
     if (direction === "left") {
@@ -47,10 +67,21 @@ class Game {
     this.draw(this.player);
   }
 
-  createMoreObstacles() {    
-    console.log("create more obstacles")
-}
+  detectCollision(obstacle) {
+    // P.y v O.y
+    // P.x v O.x
+    // P.x v O.y
+    // p.y v O.x
 
+  //   if (
+  //     this.player.positionX === obstacle.positionX + obstacle.width &&
+  //     this.player.positionY + this.player.height === obstacle.positionY  &&
+  //     this.player.positionX === obstacle.positionY + obstacle.h &&
+  //     this.player.positionY === obstacle.positionX
+  //   ) { console.log("collision detected")
+  // throw new error("collision detected");
+  //   }
+  }
 }
 
 class Player {
@@ -58,6 +89,8 @@ class Player {
     this.positionX = 50;
     this.positionY = 0;
     this.domElement = null;
+    this.width = 5;
+    this.height = 5;
   }
 
   moveLeft() {
@@ -74,11 +107,11 @@ class Obstacle {
     this.positionX = Math.floor(Math.random() * 100); // if we want the obstacles to be random this needs to be a random number
     this.positionY = 97;
     this.domElement = null;
+    this.width = 5;
+    this.height = 5;
   }
 
   moveDown() {
     this.positionY--;
   }
-
-  
 }
