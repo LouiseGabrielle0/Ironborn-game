@@ -1,0 +1,9 @@
+#board {
+    background-color: rgba(165, 42, 42, 0.322);
+    outline: 1px solid orange;
+    height: 80vh;
+    width: 80vh;
+    margin-left: 50vh;
+    margin-top: 10vh;
+}
+
