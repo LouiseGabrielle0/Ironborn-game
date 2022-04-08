@@ -16,6 +16,7 @@ class Game {
     this.timer = 0;
     this.intervalID = null; // this will allow me to clearInterval(this)
     this.bonusArr = [];
+    this.run = false;
     // this.score = 0
     // this.timer = 0
   }
@@ -26,12 +27,16 @@ class Game {
     this.draw(this.player);
     this.displayLife();
     this.displayScore();
-    this.obstacle = new Obstacle();
-    this.bonus = new Bonus();
+  }
+    
+    
+   runGame() {
+    // this.obstacle = new Obstacle();
+   // this.bonus = new Bonus();
     //this.draw(this.bonus);
     // this.bonus.domElement = this.create("bonus");
 
-    this.intervalID = setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.obstacleArr.forEach((obstacle) => {
         obstacle.moveDown();
         this.draw(obstacle);
@@ -64,6 +69,10 @@ class Game {
       this.obstacle.moveDown();
       this.draw(this.obstacle);
     }, 100); */
+
+  pauseGame(){
+    clearInterval(this.intervalId);
+    }
 
   movePlayer(direction) {
     if (direction === "left" && this.player.positionX > 0) {
@@ -102,7 +111,7 @@ class Game {
       this.player.positionY < bonus.positionY + bonus.height &&
       this.player.height + this.player.positionY > bonus.positionY
     ) {
-      this.player.score++;
+      this.player.score+=10;
       this.displayScore();
       this.bonusArr.splice(this.bonusArr.indexOf(bonus), 1);
       bonus.domElement.remove();
