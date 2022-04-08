@@ -29,6 +29,8 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
+
+
 /* checkCollision() { 
 if (instance.domElement.style.left < 0 || instance.domElement.style.left > 99) // horizontal position
 STOP

@@ -6,7 +6,12 @@
     width: 80vh;
     margin-left: 50vh;
     margin-top: 10vh;
-    
+    background-image: url(../images/zombie-background.jpg);
+}
+body {
+    font: red;
+    background-color: black;
+    background-position: stretch;
 }
 
 .player {
@@ -17,4 +22,10 @@
 .obstacle {
     position: absolute;
     background-color: rgba(145, 45, 32, 0.842);  
+}
+
+#life {
+ font-size: 50px;
+ text-align: center;
+ font: red;
 }

@@ -14,6 +14,7 @@ class Game {
     this.draw = draw;
     this.obstacleArr = [];
     this.timer = 0;
+    this.intervalID = null   // this will allow me to clearInterval(this.intervalID)
 
     // this.score = 0
     // this.timer = 0
@@ -28,7 +29,7 @@ class Game {
     // this.obstacle.domElement = this.create("obstacle");
     // this.draw(this.obstacle);
 
-    setInterval(() => {
+this.intervalID =  setInterval(() => {
       this.obstacleArr.forEach((obstacle) => {
         obstacle.moveDown();
         this.draw(obstacle);
@@ -73,7 +74,7 @@ class Game {
       this.player.life--;
       this.obstacleArr.splice(this.obstacleArr.indexOf(obstacle), 1);
       obstacle.domElement.remove();
-      if (this.player.life === 0) {
+      if (this.player.life === -1) {
       this.gameOver();}
     }
   }
@@ -112,7 +113,7 @@ class Player {
 
 class Obstacle {
   constructor() {
-    this.positionX = Math.floor(Math.random() * 100); // if we want the obstacles to be random this needs to be a random number
+    this.positionX = Math.floor(Math.random() * 95); // if we want the obstacles to be random this needs to be a random number
     this.positionY = 97;
     this.domElement = null;
     this.width = 5;
