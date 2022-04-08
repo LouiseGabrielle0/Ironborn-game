@@ -102,8 +102,7 @@ class Game {
     this.weaponShootArr.forEach((shot) => {
       shot.moveUp();
       this.draw(shot);
-      this.detectCollision(shot);
-      this.deleteObstacle(shot);
+      this.deleteWeapon(shot);
     })}, 100);
   }
 
