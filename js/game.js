@@ -25,6 +25,7 @@ class Game {
     this.player.domElement = this.create("player");
     this.draw(this.player);
     this.displayLife();
+    this.displayScore();
     this.obstacle = new Obstacle();
     this.bonus = new Bonus();
     //this.draw(this.bonus);
@@ -36,7 +37,7 @@ this.intervalID =  setInterval(() => {
         obstacle.moveDown();
         this.draw(obstacle);
         this.detectCollision(obstacle);
-        this.deleteObstacle(obstacle);
+        this.deleteObstacle(obstacle); // removes obstacle when reaches the bottom of the screen
       
       });
 
@@ -53,13 +54,19 @@ this.intervalID =  setInterval(() => {
         this.draw(newBonus);
         console.log(this.bonusArr)
        }
+       
+       this.bonusArr.forEach((bonus) => {
+        this.draw(bonus);
+        this.detectCollection(bonus)
+         })
 
+      
       this.timer++;
 
       ;
     }, 100);
 
-    console.log(this.bonusArr);
+ 
   }
 
   /*  setInterval(() => {
@@ -78,7 +85,7 @@ this.intervalID =  setInterval(() => {
       this.player.moveDown();
     }
     this.draw(this.player);
-    console.log("the x position is " + this.player.positionX + "the y position is" + this.player.positionY)
+    
   }
 
   detectCollision(obstacle) {
@@ -94,6 +101,20 @@ this.intervalID =  setInterval(() => {
       obstacle.domElement.remove();
       if (this.player.life === -1) {
       this.gameOver();}
+    }
+  }
+
+  detectCollection(bonus) {
+    if (
+      this.player.positionX < bonus.positionX + bonus.width &&
+      this.player.positionX + this.player.width > bonus.positionX &&
+      this.player.positionY < bonus.positionY + bonus.height &&
+      this.player.height + this.player.positionY > bonus.positionY
+    ) {
+      this.player.score++;
+      this.displayScore();
+      this.bonusArr.splice(this.bonusArr.indexOf(bonus), 1);
+      bonus.domElement.remove();
     }
   }
 
@@ -113,6 +134,11 @@ this.intervalID =  setInterval(() => {
     let lifeLeft = this.player.life;
     document.getElementById("life").textContent = lifeLeft;
   }
+
+  displayScore() {
+    let score = this.player.score;
+    document.getElementById("score").textContent = score;
+  }
 }
 
 class Player {
@@ -123,6 +149,7 @@ class Player {
     this.width = 5;
     this.height = 5;
     this.life = 3;
+    this.player = 0;
   }
 
   moveLeft() {
