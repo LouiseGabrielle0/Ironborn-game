@@ -11,13 +11,11 @@ function createDomElement(className) {
 }
 
 function drawDomElement(instance){
+instance.domElement.style.width = instance.width + "%";
+instance.domElement.style.height = instance.height + "%";
 instance.domElement.style.left = instance.positionX + "%";
 instance.domElement.style.bottom = instance.positionY + "%";
-
-
-// instance.domElement.style.backgroundColor = "red" // to change color
 }
-
 
 const game = new Game(createDomElement, drawDomElement);
 game.start();

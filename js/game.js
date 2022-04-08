@@ -14,7 +14,7 @@ class Game {
     this.draw = draw;
     this.obstacleArr = [];
     this.timer = 0;
-    
+
     // this.score = 0
     // this.timer = 0
   }
@@ -25,19 +25,15 @@ class Game {
     this.draw(this.player);
 
     this.obstacle = new Obstacle();
-    this.obstacle.domElement = this.create("obstacle");
-    this.draw(this.obstacle);
-    this.detectCollision(this.obstacle);
-    console.log(this.player.positionX)
-    console.log(this.player.positionY)
+    // this.obstacle.domElement = this.create("obstacle");
+    // this.draw(this.obstacle);
 
     setInterval(() => {
       this.obstacleArr.forEach((obstacle) => {
         obstacle.moveDown();
         this.draw(obstacle);
-        this.detectCollision(this.obstacle);
-        console.log(this.player.positionX)
-    console.log(this.player.positionY)
+        this.detectCollision(obstacle);
+        this.deleteObstacle(obstacle);
       });
 
       if (this.timer % 5 === 0) {
@@ -48,7 +44,7 @@ class Game {
       this.timer++;
     }, 100);
 
-    
+    console.log(this.player.positionX);
   }
 
   /*  setInterval(() => {
@@ -57,10 +53,10 @@ class Game {
     }, 100); */
 
   movePlayer(direction) {
-    if (direction === "left") {
+    if (direction === "left" && this.player.positionX > 0) {
       this.player.moveLeft();
       console.log("we moved to the left");
-    } else if (direction === "right") {
+    } else if (direction === "right" && this.player.positionX < 95) {
       this.player.moveRight();
       console.log("we moved to the right");
     }
@@ -68,19 +64,30 @@ class Game {
   }
 
   detectCollision(obstacle) {
-    // P.y v O.y
-    // P.x v O.x
-    // P.x v O.y
-    // p.y v O.x
+    if (
+      this.player.positionX < obstacle.positionX + obstacle.width &&
+      this.player.positionX + this.player.width > obstacle.positionX &&
+      this.player.positionY < obstacle.positionY + obstacle.height &&
+      this.player.height + this.player.positionY > obstacle.positionY
+    ) {
+      this.player.life--;
+      this.obstacleArr.splice(this.obstacleArr.indexOf(obstacle), 1);
+      obstacle.domElement.remove();
+      if (this.player.life === 0) {
+      this.gameOver();}
+    }
+  }
 
-  //   if (
-  //     this.player.positionX === obstacle.positionX + obstacle.width &&
-  //     this.player.positionY + this.player.height === obstacle.positionY  &&
-  //     this.player.positionX === obstacle.positionY + obstacle.h &&
-  //     this.player.positionY === obstacle.positionX
-  //   ) { console.log("collision detected")
-  // throw new error("collision detected");
-  //   }
+  deleteObstacle(obstacle) {
+    if (obstacle.positionY === 0) {
+      this.obstacleArr.splice(this.obstacleArr.indexOf(obstacle), 1);
+      obstacle.domElement.remove();
+    }
+  }
+
+  gameOver() {
+    alert("Game Over");
+    location.reload();
   }
 }
 
@@ -91,6 +98,7 @@ class Player {
     this.domElement = null;
     this.width = 5;
     this.height = 5;
+    this.life = 3;
   }
 
   moveLeft() {
@@ -114,4 +122,15 @@ class Obstacle {
   moveDown() {
     this.positionY--;
   }
+}
+
+class Weapon {
+  constructor() {
+    this.positionX = 50;
+    this.positionY = 0;
+    this.domElement = null;
+    this.width = 5;
+    this.height = 5;
+    this.life = 3;
+}
 }
