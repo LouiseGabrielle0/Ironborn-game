@@ -14,7 +14,7 @@ class Game {
     this.draw = draw;
     this.obstacleArr = [];
     this.timer = 0;
-    this.intervalID = null   // this will allow me to clearInterval(this)
+    this.intervalID = null; // this will allow me to clearInterval(this)
     this.bonusArr = [];
     // this.score = 0
     // this.timer = 0
@@ -29,16 +29,14 @@ class Game {
     this.obstacle = new Obstacle();
     this.bonus = new Bonus();
     //this.draw(this.bonus);
-  // this.bonus.domElement = this.create("bonus");
- 
+    // this.bonus.domElement = this.create("bonus");
 
-this.intervalID =  setInterval(() => {
+    this.intervalID = setInterval(() => {
       this.obstacleArr.forEach((obstacle) => {
         obstacle.moveDown();
         this.draw(obstacle);
         this.detectCollision(obstacle);
         this.deleteObstacle(obstacle); // removes obstacle when reaches the bottom of the screen
-      
       });
 
       if (this.timer % 5 === 0) {
@@ -46,27 +44,20 @@ this.intervalID =  setInterval(() => {
         newObstacle.domElement = this.create("obstacle");
         this.obstacleArr.push(newObstacle);
       }
-        // trying to make the bonus appear every 8 minutes
-      if (this.timer % 300 === 0) { 
+
+      this.bonusArr.forEach((bonus) => {
+        this.draw(bonus);
+        this.detectCollection(bonus);
+      });
+
+      if (this.timer % 300 === 0) {
         const newBonus = new Bonus();
         newBonus.domElement = this.create("bonus");
         this.bonusArr.push(newBonus);
-        this.draw(newBonus);
-        console.log(this.bonusArr)
-       }
-       
-       this.bonusArr.forEach((bonus) => {
-        this.draw(bonus);
-        this.detectCollection(bonus)
-         })
+      }
 
-      
       this.timer++;
-
-      ;
     }, 100);
-
- 
   }
 
   /*  setInterval(() => {
@@ -79,13 +70,12 @@ this.intervalID =  setInterval(() => {
       this.player.moveLeft();
     } else if (direction === "right" && this.player.positionX < 95) {
       this.player.moveRight();
-    }  else if (direction === "up" && this.player.positionY < 95) {
+    } else if (direction === "up" && this.player.positionY < 95) {
       this.player.moveUp();
-    }  else if (direction === "down" && this.player.positionY > 0) {
+    } else if (direction === "down" && this.player.positionY > 0) {
       this.player.moveDown();
     }
     this.draw(this.player);
-    
   }
 
   detectCollision(obstacle) {
@@ -100,7 +90,8 @@ this.intervalID =  setInterval(() => {
       this.obstacleArr.splice(this.obstacleArr.indexOf(obstacle), 1);
       obstacle.domElement.remove();
       if (this.player.life === -1) {
-      this.gameOver();}
+        this.gameOver();
+      }
     }
   }
 
@@ -149,7 +140,7 @@ class Player {
     this.width = 5;
     this.height = 5;
     this.life = 3;
-    this.player = 0;
+    this.score = 0;
   }
 
   moveLeft() {
@@ -163,15 +154,15 @@ class Player {
   moveDown() {
     this.positionY--;
   }
- 
-  moveUp(){
+
+  moveUp() {
     this.positionY++;
   }
 }
 
 class Obstacle {
   constructor() {
-    this.positionX = Math.floor(Math.random() * 95); 
+    this.positionX = Math.floor(Math.random() * 95);
     this.positionY = 97;
     this.domElement = null;
     this.width = 5;
@@ -182,7 +173,7 @@ class Obstacle {
     this.positionY--;
   }
 
-  moveUp(){
+  moveUp() {
     this.positionY++;
   }
 }
@@ -194,15 +185,12 @@ class Weapon {
     this.domElement = null;
     this.width = 1;
     this.height = 1;
-   
-}
+  }
 
-moveUp(){
-  this.positionY++;
+  moveUp() {
+    this.positionY++;
+  }
 }
-
-}
-
 
 class Bonus {
   constructor() {
@@ -211,8 +199,5 @@ class Bonus {
     this.domElement = null;
     this.width = 3;
     this.height = 3;
-
-}
-
-
+  }
 }
