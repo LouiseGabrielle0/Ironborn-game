@@ -21,17 +21,45 @@ const game = new Game(createDomElement, drawDomElement);
 game.start();
 
 document.addEventListener("keydown", function (event) {
-  if (event.key === "ArrowRight") {
-    game.movePlayer("right");
-  } else if (event.key === "ArrowUp"){
-    game.movePlayer("up");
-  } else if (event.key === "ArrowDown"){
-    game.movePlayer("down")
-  } else if (event.key === "ArrowLeft") {
-    game.movePlayer("left");
+  switch (event.key){
+    case "ArrowRight":
+      game.movePlayer("right");
+      break;
+    case "ArrowLeft":
+      game.movePlayer("left");
+      break;
+    case "ArrowUp":
+      game.movePlayer("up");
+      break;
+    case "ArrowDown":
+      game.movePlayer("down");
+      break;
+    case "s":
+        if (game.run === false){
+          game.run = true;
+          game.runGame();
+        } else if (game.run === true){
+          game.run = false;
+          game.pauseGame();
+        };
+        break;
+      case " ":
+        console.log("pressed to shoot")
+        game.weaponShoot();
+        break;
+    }
+  })
+  
+  // if (event.key === "ArrowRight") {
+  //   game.movePlayer("right");
+  // } else if (event.key === "ArrowUp"){
+  //   game.movePlayer("up");
+  // } else if (event.key === "ArrowDown"){
+  //   game.movePlayer("down")
+  // } else if (event.key === "ArrowLeft") {
+  //   game.movePlayer("left");
+  //  }
 
-  }
-});
 
 
 

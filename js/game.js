@@ -17,6 +17,7 @@ class Game {
     this.intervalID = null; // this will allow me to clearInterval(this)
     this.bonusArr = [];
     this.run = false;
+    this.weaponShootArr = [];
     // this.score = 0
     // this.timer = 0
   }
@@ -28,11 +29,10 @@ class Game {
     this.displayLife();
     this.displayScore();
   }
-    
-    
-   runGame() {
+
+  runGame() {
     // this.obstacle = new Obstacle();
-   // this.bonus = new Bonus();
+    // this.bonus = new Bonus();
     //this.draw(this.bonus);
     // this.bonus.domElement = this.create("bonus");
 
@@ -61,6 +61,11 @@ class Game {
         this.bonusArr.push(newBonus);
       }
 
+      //this.weaponShootArr.forEach((weapon) => {
+      // this.draw(weapon);
+      //  this.detectShot(weapon);
+      //  this.deleteWeapon(weapon);
+
       this.timer++;
     }, 100);
   }
@@ -70,9 +75,9 @@ class Game {
       this.draw(this.obstacle);
     }, 100); */
 
-  pauseGame(){
+  pauseGame() {
     clearInterval(this.intervalId);
-    }
+  }
 
   movePlayer(direction) {
     if (direction === "left" && this.player.positionX > 0) {
@@ -87,6 +92,21 @@ class Game {
     this.draw(this.player);
   }
 
+  weaponShoot() {
+    console.log("trying to shoot")
+    const newWeapon = new Weapon(this.player.positionX, this.player.positionY);
+    newWeapon.domElement = this.create("weapon");
+    this.weaponShootArr.push(newWeapon);
+
+    this.shootTimerId = setInterval(() => {
+    this.weaponShootArr.forEach((shot) => {
+      shot.moveUp();
+      this.draw(shot);
+      this.detectCollision(shot);
+      this.deleteObstacle(shot);
+    })}, 100);
+  }
+
   detectCollision(obstacle) {
     if (
       this.player.positionX < obstacle.positionX + obstacle.width &&
@@ -98,9 +118,9 @@ class Game {
       this.displayLife();
       this.obstacleArr.splice(this.obstacleArr.indexOf(obstacle), 1);
       obstacle.domElement.remove();
-      if (this.player.life === -1) {
-        this.gameOver();
-      }
+    }
+    if (this.player.life === -1) {
+      this.gameOver();
     }
   }
 
@@ -111,10 +131,24 @@ class Game {
       this.player.positionY < bonus.positionY + bonus.height &&
       this.player.height + this.player.positionY > bonus.positionY
     ) {
-      this.player.score+=10;
+      this.player.score += 10;
       this.displayScore();
       this.bonusArr.splice(this.bonusArr.indexOf(bonus), 1);
       bonus.domElement.remove();
+    }
+  }
+
+  detectShot(weapon) {
+    if (
+      weapon.positionX < this.obstacle.positionX + this.obstacle.width &&
+      weapon.positionX + weapon.width > this.obstacle.positionX &&
+      weapon.positionY < this.obstacle.positionY + this.obstacle.height &&
+      weapon.height + weapon.positionY > this.obstacle.positionY
+    ) {
+      this.player.score += 10;
+      this.displayScore();
+      this.weaponShootArr.splice(this.weaponShootArr.indexOf(bonus), 1);
+      weapon.domElement.remove();
     }
   }
 
@@ -122,6 +156,13 @@ class Game {
     if (obstacle.positionY === 0) {
       this.obstacleArr.splice(this.obstacleArr.indexOf(obstacle), 1);
       obstacle.domElement.remove();
+    }
+  }
+
+  deleteWeapon(weapon) {
+    if (weapon.positionY === 90) {
+      this.weaponShootArr.splice(this.weaponShootArr.indexOf(weapon), 1);
+      weapon.domElement.remove();
     }
   }
 
@@ -187,10 +228,11 @@ class Obstacle {
   }
 }
 
-class Weapon {
-  constructor() {
-    this.positionX = 50;
-    this.positionY = 0;
+
+
+class Weapon extends Player {
+  constructor(positionX, positionY) {
+    super()
     this.domElement = null;
     this.width = 1;
     this.height = 1;
@@ -198,6 +240,18 @@ class Weapon {
 
   moveUp() {
     this.positionY++;
+  }
+
+  moveDown() {
+    this.positionY--;
+  }
+
+  moveLeft() {
+    this.positionX--;
+  }
+
+  moveRight() {
+    this.positionX++;
   }
 }
 
