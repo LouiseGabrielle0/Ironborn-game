@@ -103,7 +103,7 @@ class Game {
     this.shootTimerId = setInterval(() => {
     this.weaponShootArr.forEach((shot) => {
       shot.moveUp();
-      this.draw(shot);
+      this.draw(shot);   
       this.deleteWeapon(shot);
     })}, 100);
   }
@@ -139,19 +139,24 @@ class Game {
     }
   }
 
-  detectShot(weapon) {
-    if (
-      weapon.positionX < this.obstacle.positionX + this.obstacle.width &&
-      weapon.positionX + weapon.width > this.obstacle.positionX &&
-      weapon.positionY < this.obstacle.positionY + this.obstacle.height &&
-      weapon.height + weapon.positionY > this.obstacle.positionY
-    ) {
-      this.player.score += 10;
-      this.displayScore();
-      this.weaponShootArr.splice(this.weaponShootArr.indexOf(bonus), 1);
-      weapon.domElement.remove();
-    }
-  }
+
+  // detect shot has too find obstacle then move it from the array - perhaps use the detect collision
+  //method 
+
+  
+  // detectShot(shot) {
+  //   if (
+  //     this.obstacle.positionX < shot.positionX + shot.width &&
+  //     this.obstacle.positionX + this.obstacle.width > shot.positionX &&
+  //     this.obstacle.positionY < shot.positionY + shot.height &&
+  //     this.obstacle.height + this.obstacle.positionY > shot.positionY
+  //   ) {
+  //     this.player.score += 10;
+  //     this.displayScore();
+  //     this.obstacleArr.splice(this.obstacleArr.indexOf(obstacle), 1);
+  //     obstacle.domElement.remove();
+  //   }
+  // }
 
   deleteObstacle(obstacle) {
     if (obstacle.positionY === 0) {
@@ -161,7 +166,7 @@ class Game {
   }
 
   deleteWeapon(weapon) {
-    if (weapon.positionY === 90) {
+    if (weapon.positionY === 99) {
       this.weaponShootArr.splice(this.weaponShootArr.indexOf(weapon), 1);
       weapon.domElement.remove();
     }
