@@ -93,8 +93,10 @@ class Game {
   }
 
   weaponShoot() {
+    let playerPositionX = this.player.positionX
+    let playerPositionY = this.player.positionY
     console.log("trying to shoot")
-    const newWeapon = new Weapon(this.player.positionX, this.player.positionY);
+    const newWeapon = new Weapon(playerPositionX, playerPositionY);
     newWeapon.domElement = this.create("weapon");
     this.weaponShootArr.push(newWeapon);
 
@@ -232,6 +234,8 @@ class Obstacle {
 class Weapon extends Player {
   constructor(positionX, positionY) {
     super()
+    this.positionX = positionX;
+    this.positionY = positionY;
     this.domElement = null;
     this.width = 1;
     this.height = 1;
