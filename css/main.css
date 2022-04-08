@@ -28,6 +28,11 @@ body {
     background-color: rgba(145, 45, 32, 0.863);  
 }
 
+.bonus {
+    position: absolute;
+    background-color: gold
+}
+
 .weapon {
     position: absolute;
     background-color: rgba(238, 241, 20, 0.911);  

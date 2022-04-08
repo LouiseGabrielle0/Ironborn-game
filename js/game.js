@@ -15,7 +15,7 @@ class Game {
     this.obstacleArr = [];
     this.timer = 0;
     this.intervalID = null   // this will allow me to clearInterval(this)
-
+    this.bonusArr = [];
     // this.score = 0
     // this.timer = 0
   }
@@ -26,8 +26,10 @@ class Game {
     this.draw(this.player);
     this.displayLife();
     this.obstacle = new Obstacle();
-    // this.obstacle.domElement = this.create("obstacle");
-    // this.draw(this.obstacle);
+    this.bonus = new Bonus();
+    //this.draw(this.bonus);
+  // this.bonus.domElement = this.create("bonus");
+ 
 
 this.intervalID =  setInterval(() => {
       this.obstacleArr.forEach((obstacle) => {
@@ -43,10 +45,21 @@ this.intervalID =  setInterval(() => {
         newObstacle.domElement = this.create("obstacle");
         this.obstacleArr.push(newObstacle);
       }
+        // trying to make the bonus appear every 8 minutes
+      if (this.timer % 300 === 0) { 
+        const newBonus = new Bonus();
+        newBonus.domElement = this.create("bonus");
+        this.bonusArr.push(newBonus);
+        this.draw(newBonus);
+        console.log(this.bonusArr)
+       }
+
       this.timer++;
+
+      ;
     }, 100);
 
-    console.log(this.player.positionX);
+    console.log(this.bonusArr);
   }
 
   /*  setInterval(() => {
@@ -61,7 +74,7 @@ this.intervalID =  setInterval(() => {
       this.player.moveRight();
     }  else if (direction === "up" && this.player.positionY < 95) {
       this.player.moveUp();
-    }  else if (direction === "down" && this.player.positionY > 5) {
+    }  else if (direction === "down" && this.player.positionY > 0) {
       this.player.moveDown();
     }
     this.draw(this.player);
@@ -164,5 +177,15 @@ moveUp(){
 }
 
 
+class Bonus {
+  constructor() {
+    this.positionX = Math.floor(Math.random() * 95);
+    this.positionY = Math.floor(Math.random() * 95);
+    this.domElement = null;
+    this.width = 3;
+    this.height = 3;
+
+}
 
 
+}
