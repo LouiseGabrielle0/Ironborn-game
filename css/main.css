@@ -9,7 +9,7 @@
     outline: 1px solid orange;
     height: 60vh;
     width: 60vh;
-    margin-top: 10vh;
+    margin-top: 7vh;
     background-image: url(../images/zombie-background.jpg);
     background-repeat: no-repeat;
 }
@@ -38,7 +38,7 @@ body {
     background-color: rgba(238, 241, 20, 0.911);  
 }
 
-h1, h2, h3, {
+h1, h2, h3, h4 {
  font-size: 50px;
  margin-top: 2.5vh;
  color:rgb(235, 176, 176);
