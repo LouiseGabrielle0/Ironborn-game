@@ -14,7 +14,7 @@ class Game {
     this.draw = draw;
     this.obstacleArr = [];
     this.timer = 0;
-    this.intervalID = null   // this will allow me to clearInterval(this.intervalID)
+    this.intervalID = null   // this will allow me to clearInterval(this)
 
     // this.score = 0
     // this.timer = 0
@@ -24,7 +24,7 @@ class Game {
     this.player = new Player();
     this.player.domElement = this.create("player");
     this.draw(this.player);
-
+    this.displayLife();
     this.obstacle = new Obstacle();
     // this.obstacle.domElement = this.create("obstacle");
     // this.draw(this.obstacle);
@@ -35,6 +35,7 @@ this.intervalID =  setInterval(() => {
         this.draw(obstacle);
         this.detectCollision(obstacle);
         this.deleteObstacle(obstacle);
+      
       });
 
       if (this.timer % 5 === 0) {
@@ -56,12 +57,15 @@ this.intervalID =  setInterval(() => {
   movePlayer(direction) {
     if (direction === "left" && this.player.positionX > 0) {
       this.player.moveLeft();
-      console.log("we moved to the left");
     } else if (direction === "right" && this.player.positionX < 95) {
       this.player.moveRight();
-      console.log("we moved to the right");
+    }  else if (direction === "up" && this.player.positionY < 95) {
+      this.player.moveUp();
+    }  else if (direction === "down" && this.player.positionY > 5) {
+      this.player.moveDown();
     }
     this.draw(this.player);
+    console.log("the x position is " + this.player.positionX + "the y position is" + this.player.positionY)
   }
 
   detectCollision(obstacle) {
@@ -72,6 +76,7 @@ this.intervalID =  setInterval(() => {
       this.player.height + this.player.positionY > obstacle.positionY
     ) {
       this.player.life--;
+      this.displayLife();
       this.obstacleArr.splice(this.obstacleArr.indexOf(obstacle), 1);
       obstacle.domElement.remove();
       if (this.player.life === -1) {
@@ -89,6 +94,11 @@ this.intervalID =  setInterval(() => {
   gameOver() {
     alert("Game Over");
     location.reload();
+  }
+
+  displayLife() {
+    let lifeLeft = this.player.life;
+    document.getElementById("life").textContent = lifeLeft;
   }
 }
 
@@ -109,11 +119,19 @@ class Player {
   moveRight() {
     this.positionX++;
   }
+
+  moveDown() {
+    this.positionY--;
+  }
+ 
+  moveUp(){
+    this.positionY++;
+  }
 }
 
 class Obstacle {
   constructor() {
-    this.positionX = Math.floor(Math.random() * 95); // if we want the obstacles to be random this needs to be a random number
+    this.positionX = Math.floor(Math.random() * 95); 
     this.positionY = 97;
     this.domElement = null;
     this.width = 5;
@@ -123,6 +141,10 @@ class Obstacle {
   moveDown() {
     this.positionY--;
   }
+
+  moveUp(){
+    this.positionY++;
+  }
 }
 
 class Weapon {
@@ -130,8 +152,17 @@ class Weapon {
     this.positionX = 50;
     this.positionY = 0;
     this.domElement = null;
-    this.width = 5;
-    this.height = 5;
-    this.life = 3;
+    this.width = 1;
+    this.height = 1;
+   
 }
+
+moveUp(){
+  this.positionY++;
 }
+
+}
+
+
+
+

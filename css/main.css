@@ -1,17 +1,21 @@
+
+#container{
+    margin-left: 20%;
+}
+
 #board {
     position: relative;
     background-color: rgba(165, 42, 42, 0.322);
     outline: 1px solid orange;
-    height: 80vh;
-    width: 80vh;
-    margin-left: 50vh;
+    height: 60vh;
+    width: 60vh;
     margin-top: 10vh;
     background-image: url(../images/zombie-background.jpg);
+    background-repeat: no-repeat;
 }
 body {
     font: red;
-    background-color: black;
-    background-position: stretch;
+    background-color: rgba(0, 0, 0, 0.295);
 }
 
 .player {
@@ -21,11 +25,68 @@ body {
 
 .obstacle {
     position: absolute;
-    background-color: rgba(145, 45, 32, 0.842);  
+    background-color: rgba(145, 45, 32, 0.863);  
 }
 
-#life {
+.weapon {
+    position: absolute;
+    background-color: rgba(238, 241, 20, 0.911);  
+}
+
+h1 {
  font-size: 50px;
- text-align: center;
- font: red;
+ margin-top: 2.5vh;
+ color:rgb(235, 176, 176);
+       text-shadow:
+       4px 4px 1px #300000,
+       4px 6px 1px #400000,
+       4px 8px 1px #500000,
+       4px 10px 1px #600000,
+       4px 12px 1px #700000,
+       4px 14px 1px #800000,
+       4px 16px 1px #900000,
+       4px 18px 1px #A00000,
+       4px 20px 1px #B00000,
+       4px 22px 1px #C00000,
+       4px 24px 1px #D00000,
+       4px 26px 1px #E00000,
+       4px 28px 1px #F00000,
+       4px 30px 1px #FA0000,
+       4px 32px 1px #FB0000,
+       4px 34px 1px #FC0000,
+       4px 36px 1px #FD0000,
+       4px 38px 1px #FE0000,
+       4px 40px 2px #FF0000;
+}
+
+.lifetimer {
+    display: inline;
+
+    
+}
+
+h2 {
+    font-size: 50px;
+ margin-top: 2.5vh;
+ color:rgb(231, 202, 202);
+       text-shadow:
+       4px 4px 1px #300000,
+       4px 6px 1px #400000,
+       4px 8px 1px #500000,
+       4px 10px 1px #600000,
+       4px 12px 1px #700000,
+       4px 14px 1px #800000,
+       4px 16px 1px #900000,
+       4px 18px 1px #A00000,
+       4px 20px 1px #B00000,
+       4px 22px 1px #C00000,
+       4px 24px 1px #D00000,
+       4px 26px 1px #E00000,
+       4px 28px 1px #F00000,
+       4px 30px 1px #FA0000,
+       4px 32px 1px #FB0000,
+       4px 34px 1px #FC0000,
+       4px 36px 1px #FD0000,
+       4px 38px 1px #FE0000,
+       4px 40px 2px #FF0000;
 }

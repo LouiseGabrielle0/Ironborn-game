@@ -23,6 +23,10 @@ game.start();
 document.addEventListener("keydown", function (event) {
   if (event.key === "ArrowRight") {
     game.movePlayer("right");
+  } else if (event.key === "ArrowUp"){
+    game.movePlayer("up");
+  } else if (event.key === "ArrowDown"){
+    game.movePlayer("down")
   } else if (event.key === "ArrowLeft") {
     game.movePlayer("left");
 
